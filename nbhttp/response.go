@@ -62,10 +62,8 @@ func (res *Response) Header() http.Header {
 func (res *Response) WriteHeader(statusCode int) {
 	if !res.hijacked && res.statusCode == 0 && res.statusCode != statusCode {
 		status := http.StatusText(statusCode)
-		if status != "" {
-			res.status = status
-			res.statusCode = statusCode
-		}
+		res.status = status
+		res.statusCode = statusCode
 
 		if cl := res.header.Get(contentLengthHeader); cl != "" {
 			v, err := strconv.ParseInt(cl, 10, 64)
